@@ -10,7 +10,7 @@ A collection of simple **Java programs** created while learning the fundamentals
 | 2  | `EvenOdd.java`       | Checks whether a number is even or odd                                    |
 | 3  | `Factorial.java`     | Calculates the factorial of a number                                      |
 | 4  | `Fibonacci.java`     | Calculates the Fibonacci value at a given position using recursion        |
-| 5  | `Hello.java`         | Takes two numbers and calculates their sum                                |
+| 5  | `Sum.java`           | Takes two numbers and calculates their sum                                |
 | 6  | `PalindromeNum.java` | Checks whether a number is a palindrome                                   |
 | 7  | `PalindromeW.java`   | Checks whether a word is a palindrome                                     |
 | 8  | `Prime.java`         | Checks whether a number is prime                                          |
@@ -111,7 +111,7 @@ fib(n) = fib(n-1) + fib(n-2)
 
 ---
 
-### 5. Hello.java — Sum of Two Numbers
+### 5. Sum.java — Sum of Two Numbers
 
 A simple beginner program that takes two numbers from the user and calculates their sum.
 
