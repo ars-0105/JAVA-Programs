@@ -40,8 +40,7 @@ This project is built using **Java**, `ArrayList`, `Scanner`, and `Comparator`, 
 
 * 🔤 **Automatic Sorting**
 
-  * Students are sorted alphabetically by name.
-  * If two students have the same name, they are sorted by Student ID.
+  * Students are sorted in ascending order by ID.
 
 ## 🛠️ Technologies Used
 
