@@ -61,7 +61,7 @@ public class SGMS {
     // Function to Sort students based on ID and name in Ascen. order 
     
     static void sort(ArrayList<Student> student){
-        student.sort(Comparator.comparing((Student s) -> s.name).thenComparingInt(s ->s.ID));
+    student.sort(Comparator.comparingInt(s -> s.ID));
     }
     
     // Function to remove students
