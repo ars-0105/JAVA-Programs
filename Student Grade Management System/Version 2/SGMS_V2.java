@@ -242,6 +242,7 @@ public class SGMS_V2 {
     }
 
     // Function to Show Class Statistics
+    
     static void statistics(ArrayList<Student> student){
         System.out.println("\n========Class Statistics=======");
         if(student.size()==0){
