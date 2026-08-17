@@ -42,7 +42,9 @@ public class SGMS {
         System.out.print("Enter Student ID: ");
         int r = sc.nextInt();
         sc.nextLine();
+        
         // To check if the Student ID already exists or not
+        
         for(Student s: student){
             if(s.ID==r){
                 System.out.println("Student ID already exists!");
