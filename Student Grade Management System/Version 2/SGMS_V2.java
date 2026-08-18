@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.InputMismatchException;
+import java.io.*;
+
 class Student{
     int ID;
     String name;
@@ -35,7 +37,84 @@ class Student{
     
 }
 public class SGMS_V2 {
+    // MAIN_MENU
 
+    //Function to create a new database
+
+    static void create(Scanner sc)throws IOException{
+        String DB;
+        File f;
+        while(true){
+            System.out.print("Enter Database Name: ");
+            DB= sc.nextLine();
+            f= new File(DB+".txt");
+            if(f.exists()){
+                System.out.println("File already Exists! Please use another name.");
+            }else{
+                break;
+            }
+        }
+        f.createNewFile();
+        System.out.println("Database created succesfully.");
+    }
+
+    //Function to show availble DB and select one
+
+    static void load(Scanner sc, ArrayList<Student> student) throws IOException{
+        File directory=new File(".");
+        File[] files= directory.listFiles();
+        System.out.println("\nAvailable Databases:");
+        int count=0;
+        for(File f: files){
+            if(f.isFile()&&f.getName().endsWith(".txt")){
+                count ++;
+                System.out.println(count+". "+f.getName());
+            }
+        }
+        if(count==0){
+            System.out.println("No Databases Found!");
+            return;
+        }
+        File d=null;
+        while(true){
+            System.out.print("Select Database no. : ");
+            int a = sc.nextInt();
+            if(a<1 || a>count){
+                System.out.println("Invalid DB number! Select one from the list.");
+            }else{
+                int c=0;
+                for(File f:files){
+                    if(f.isFile() && f.getName().endsWith(".txt")){
+                        c++;
+                        if(c==a){
+                            d=f;
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        FileReader r= new FileReader(d);
+        int ch;
+        while((ch=r.read())!=-1){
+
+        }
+        r.close();
+        System.out.println("Database Loaded Succesfully.");
+
+    }
+
+
+
+
+
+
+
+
+
+    // SUB_MENU
+    
     // Function to Add students
 
     static void addS(Scanner sc, ArrayList<Student> student){
@@ -242,7 +321,6 @@ public class SGMS_V2 {
     }
 
     // Function to Show Class Statistics
-    
     static void statistics(ArrayList<Student> student){
         System.out.println("\n========Class Statistics=======");
         if(student.size()==0){
@@ -291,54 +369,80 @@ public class SGMS_V2 {
         }
         System.out.println("Lowest Marks : "+ l);
     }
-    public static void main(String []args){
+    public static void main(String []args) throws IOException{
         Scanner sc= new Scanner(System.in); 
         ArrayList<Student> student = new ArrayList<>();
         int a;
         while(true){
             System.out.println("\n===== Student Grade Management System =====");
-            System.out.println("Operation:");
-            System.out.println("1. Add Student");
-            System.out.println("2. Remove Student");
-            System.out.println("3. Search Student");
-            System.out.println("4. View all Students");
-            System.out.println("5. Update marks");
-            System.out.println("6. Show Statistics");
-            System.out.println("7. Exit\n");
-
+            System.out.println("");
+            System.out.println("1.Create New Databse");
+            System.out.println("2.Load Existing Database");           
+            System.out.println("3.Exit\n");           
+            int c;               
             while(true){
                 try{
                 System.out.print("Enter choice: ");
-                a=sc.nextInt();
+                c=sc.nextInt();
                 break;
                 }catch(InputMismatchException e){
                 System.out.println("Invalid Input! Please enter a choice from the menu above.\n");
                 sc.nextLine();
                 }
-            }  
-
-            switch (a) {
-            case 1 : addS(sc, student);
-                     sort(student);
+            }           
+                switch(c){
+                    case 1: create(sc);
+                    break;
+                    case 2: load(sc,student);
+                    operations:
+                    while(true){
+                    System.out.println("Operation:");
+                    System.out.println("1. Add Student");
+                    System.out.println("2. Remove Student");
+                    System.out.println("3. Search Student");
+                    System.out.println("4. View all Students");
+                    System.out.println("5. Update marks");
+                    System.out.println("6. Show Statistics");
+                    System.out.println("7. Return to Main menu\n");
+                    
+                    while(true){
+                        try{
+                            System.out.print("Enter choice: ");
+                            a=sc.nextInt();
+                            break;
+                        }catch(InputMismatchException e){
+                            System.out.println("Invalid Input! Please enter a choice from the menu above.\n");
+                            sc.nextLine();
+                        }
+                    }  
+                    
+                    switch (a) {
+                        case 1 : addS(sc, student);
+                        sort(student);
+                        break;
+                        case 2 : remS(sc, student);
+                        break;
+                        case 3 : search(sc, student);
+                        break;
+                        case 4 : viewS(student);
+                        break;
+                        case 5 : updateS(sc, student);
+                        break;
+                        case 6 : statistics(student);
+                        break;
+                        case 7 : System.out.println("Returning......");
+                        break operations;
+                        default: System.out.print("\nPlease enter a valid choice\n");
+                        
+                    }
+                }    
             break;
-            case 2 : remS(sc, student);
-            break;
-            case 3 : search(sc, student);
-            break;
-            case 4 : viewS(student);
-            break;
-            case 5 : updateS(sc, student);
-            break;
-            case 6 : statistics(student);
-            break;
-            case 7 : System.out.println("Exiting......");
+            case 3 : System.out.println("Exiting......");
             sc.close();
             return;
             default: System.out.print("\nPlease enter a valid choice\n");
 
-            }
+           }                     
         }
     }
-
-    
 }
