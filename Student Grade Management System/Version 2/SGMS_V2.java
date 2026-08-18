@@ -37,7 +37,7 @@ class Student{
     
 }
 public class SGMS_V2 {
-    // MAIN_MENU
+                                                             // MAIN_MENU
 
     //Function to create a new database
 
@@ -113,7 +113,7 @@ public class SGMS_V2 {
 
 
 
-    // SUB_MENU
+                                                             // SUB_MENU
     
     // Function to Add students
 
