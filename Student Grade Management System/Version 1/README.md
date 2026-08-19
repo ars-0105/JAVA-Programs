@@ -141,20 +141,6 @@ This project helped me practice several important Java concepts:
 * Updating object data
 * Sorting collections
 
-## 🔮 Future Improvements
-
-Some features that could be added in future versions:
-
-* [ ] Add file/database storage so student records persist after closing the program
-* [ ] Add input validation for marks and Student IDs
-* [ ] Add student search functionality
-* [ ] Add attendance management
-* [ ] Add subject-wise marks
-* [ ] Calculate average marks
-* [ ] Add GPA calculation
-* [ ] Create a graphical user interface (GUI)
-* [ ] Connect the application to a database such as MySQL
-
 ## 👨‍💻 Author
 
 **Aaditya Raj Singhaniya**
