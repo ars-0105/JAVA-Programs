@@ -60,10 +60,10 @@ public class SGMS_V2 {
 
     //Function to show availble DB and select one
 
-    static void load(Scanner sc, ArrayList<Student> student) throws IOException{
+    static boolean load(Scanner sc, ArrayList<Student> student) throws IOException{
         File directory=new File(".");
         File[] files= directory.listFiles();
-        System.out.println("\nAvailable Databases:");
+        System.out.println("\nAvailable Databases:\n");
         int count=0;
         for(File f: files){
             if(f.isFile()&&f.getName().endsWith(".txt")){
@@ -72,12 +72,12 @@ public class SGMS_V2 {
             }
         }
         if(count==0){
-            System.out.println("No Databases Found!");
-            return;
+            System.out.println("\nNo Databases Found!");
+            return false;
         }
         File d=null;
         while(true){
-            System.out.print("Select Database no. : ");
+            System.out.print("\nSelect Database no. : ");
             int a = sc.nextInt();
             if(a<1 || a>count){
                 System.out.println("Invalid DB number! Select one from the list.");
@@ -101,8 +101,8 @@ public class SGMS_V2 {
 
         }
         r.close();
-        System.out.println("Database Loaded Succesfully.");
-
+        System.out.println("\nDatabase Loaded Succesfully.\n");
+        return true;
     }
 
 
@@ -391,9 +391,10 @@ public class SGMS_V2 {
                 }
             }           
                 switch(c){
-                    case 1: create(sc);
+                    case 1: sc.nextLine();
+                    create(sc);
                     break;
-                    case 2: load(sc,student);
+                    case 2: if(load(sc,student)){
                     operations:
                     while(true){
                     System.out.println("Operation:");
@@ -435,7 +436,8 @@ public class SGMS_V2 {
                         default: System.out.print("\nPlease enter a valid choice\n");
                         
                     }
-                }    
+                }
+            }    
             break;
             case 3 : System.out.println("Exiting......");
             sc.close();
