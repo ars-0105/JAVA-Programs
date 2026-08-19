@@ -60,7 +60,7 @@ public class SGMS_V2 {
 
     //Function to show availble DB and select one
 
-    static boolean load(Scanner sc, ArrayList<Student> student) throws IOException{
+    static File load(Scanner sc, ArrayList<Student> student) throws IOException{
         File directory=new File(".");
         File[] files= directory.listFiles();
         System.out.println("\nAvailable Databases:\n");
@@ -73,7 +73,7 @@ public class SGMS_V2 {
         }
         if(count==0){
             System.out.println("\nNo Databases Found!");
-            return false;
+            return null;
         }
         File d=null;
         while(true){
@@ -95,22 +95,31 @@ public class SGMS_V2 {
                 break;
             }
         }
-        FileReader r= new FileReader(d);
-        int ch;
-        while((ch=r.read())!=-1){
-
+        BufferedReader b= new BufferedReader(new FileReader(d));
+        String line;
+        while((line=b.readLine()) !=null){
+            String[] data= line.split(",");
+            int id= Integer.parseInt(data[0]);
+            String name= data[1];
+            double marks= Double.parseDouble(data[2]);
+            Student s= new Student(id,name,marks);
+            student.add(s);
         }
-        r.close();
+        b.close();
         System.out.println("\nDatabase Loaded Succesfully.\n");
-        return true;
+        return d;
     }
+    
+    // Function to save all the updation 
 
-
-
-
-
-
-
+    static void save(ArrayList<Student> student, File database) throws IOException{
+        BufferedWriter b= new BufferedWriter(new FileWriter(database));
+        for (Student s: student){
+            b.write(s.ID+","+s.name+","+s.marks);
+            b.newLine();
+        }
+        b.close();
+    }
 
 
                                                              // SUB_MENU
@@ -342,6 +351,7 @@ public class SGMS_V2 {
         }
         System.out.println("Passed Students : "+ p);
         System.out.println("Failed Students : "+ f);
+
         // Average marks
         double a=0;
         for(int i=0; i<student.size(); i++){
@@ -349,7 +359,8 @@ public class SGMS_V2 {
             a+= s.marks;
         }
         a/=t;
-        System.out.println("Average marks : " + a);
+        System.out.printf("Average marks : %.2f%n", a);
+
         // Highest marks
         double m=0;
         for(int i=0; i<student.size(); i++){
@@ -359,6 +370,7 @@ public class SGMS_V2 {
             }
         }
         System.out.println("Highest Marks : "+ m);
+        
         // Lowest marks
         double l=100;
         for(int i=0; i<student.size(); i++){
@@ -372,6 +384,7 @@ public class SGMS_V2 {
     public static void main(String []args) throws IOException{
         Scanner sc= new Scanner(System.in); 
         ArrayList<Student> student = new ArrayList<>();
+        File database=null;
         int a;
         while(true){
             System.out.println("\n===== Student Grade Management System =====");
@@ -394,10 +407,14 @@ public class SGMS_V2 {
                     case 1: sc.nextLine();
                     create(sc);
                     break;
-                    case 2: if(load(sc,student)){
+                    case 2:student.clear(); 
+                        database=load(sc,student);
+                        if(database==null){
+                            break;
+                        }
                     operations:
                     while(true){
-                    System.out.println("Operation:");
+                    System.out.println("\nOperation:");
                     System.out.println("1. Add Student");
                     System.out.println("2. Remove Student");
                     System.out.println("3. Search Student");
@@ -420,14 +437,17 @@ public class SGMS_V2 {
                     switch (a) {
                         case 1 : addS(sc, student);
                         sort(student);
+                        save(student,database);
                         break;
                         case 2 : remS(sc, student);
+                        save(student,database);
                         break;
                         case 3 : search(sc, student);
                         break;
                         case 4 : viewS(student);
                         break;
                         case 5 : updateS(sc, student);
+                        save(student,database);
                         break;
                         case 6 : statistics(student);
                         break;
@@ -436,7 +456,7 @@ public class SGMS_V2 {
                         default: System.out.print("\nPlease enter a valid choice\n");
                         
                     }
-                }
+                
             }    
             break;
             case 3 : System.out.println("Exiting......");
