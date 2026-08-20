@@ -477,40 +477,6 @@ Version 3 converts the project into a **GUI-based desktop application using Java
 
 ---
 
-## 📸 Screenshots
-
-You can add screenshots of the GUI here.
-
-Recommended screenshots:
-
-1. **Main Menu**
-2. **Database Selection**
-3. **Student Table**
-4. **Add Student Dialog**
-5. **Invalid Input Error**
-6. **Class Statistics**
-
-Suggested folder structure:
-
-```text
-screenshots/
-│
-├── main-menu.png
-├── database-selection.png
-├── student-table.png
-├── add-student.png
-├── invalid-input.png
-└── statistics.png
-```
-
-Example:
-
-```markdown
-![Main Menu](screenshots/main-menu.png)
-```
-
----
-
 ## 👨‍💻 Author
 
 **Aaditya Raj Singhaniya**
